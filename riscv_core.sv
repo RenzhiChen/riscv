@@ -84,6 +84,8 @@ module riscv_core
   input  logic [31:0] data_rdata_i,
   input  logic        data_err_i,
 
+  output logic [5:0]  data_atomic_op_o,
+
   // apu-interconnect
   // handshake signals
   output logic                       apu_master_req_o,
@@ -681,6 +683,8 @@ module riscv_core
 
     .prepost_useincr_ex_o         ( useincr_addr_ex      ),
     .data_misaligned_i            ( data_misaligned      ),
+
+    .atomic_op_ex_o               ( data_atomic_op_o     ),
 
     // Interrupt Signals
     .irq_i                        ( irq_i                ), // incoming interrupts
