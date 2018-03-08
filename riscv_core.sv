@@ -684,7 +684,7 @@ module riscv_core
     .prepost_useincr_ex_o         ( useincr_addr_ex      ),
     .data_misaligned_i            ( data_misaligned      ),
 
-    .atomic_op_ex_o               ( data_atomic_op_o     ),
+    .atomic_op_ex_o               ( data_atomic_op       ),
 
     // Interrupt Signals
     .irq_i                        ( irq_i                ), // incoming interrupts
@@ -888,6 +888,9 @@ module riscv_core
     .data_be_o             ( data_be_o          ),
     .data_wdata_o          ( data_wdata_o       ),
     .data_rdata_i          ( data_rdata_i       ),
+    
+    .data_atomic_op_o      ( data_atomic_op_o   ),
+    .data_atomic_op_i      ( data_atomic_op     ),
 
     // signal from ex stage
     .data_we_ex_i          ( data_we_ex         ),
@@ -904,6 +907,7 @@ module riscv_core
 
     .data_misaligned_ex_i  ( data_misaligned_ex ), // from ID/EX pipeline
     .data_misaligned_o     ( data_misaligned    ),
+
 
     // exception signals
     .load_err_o            ( lsu_load_err       ),
