@@ -84,7 +84,7 @@ module riscv_core
   input  logic [31:0] data_rdata_i,
   input  logic        data_err_i,
 
-  output logic [5:0]  data_atomic_op_o,
+  output logic [5:0]  data_atop_o,
 
   // apu-interconnect
   // handshake signals
@@ -256,6 +256,7 @@ module riscv_core
 
   // Data Memory Control:  From ID stage (id-ex pipe) <--> load store unit
   logic        data_we_ex;
+  logic        data_atop_ex;
   logic [1:0]  data_type_ex;
   logic        data_sign_ext_ex;
   logic [1:0]  data_reg_offset_ex;
@@ -674,6 +675,7 @@ module riscv_core
     // LSU
     .data_req_ex_o                ( data_req_ex          ), // to load store unit
     .data_we_ex_o                 ( data_we_ex           ), // to load store unit
+    .atop_ex_o                    ( data_atop_ex         ),
     .data_type_ex_o               ( data_type_ex         ), // to load store unit
     .data_sign_ext_ex_o           ( data_sign_ext_ex     ), // to load store unit
     .data_reg_offset_ex_o         ( data_reg_offset_ex   ), // to load store unit
@@ -684,7 +686,6 @@ module riscv_core
     .prepost_useincr_ex_o         ( useincr_addr_ex      ),
     .data_misaligned_i            ( data_misaligned      ),
 
-    .atomic_op_ex_o               ( data_atomic_op       ),
 
     // Interrupt Signals
     .irq_i                        ( irq_i                ), // incoming interrupts
@@ -885,15 +886,15 @@ module riscv_core
 
     .data_addr_o           ( data_addr_o        ),
     .data_we_o             ( data_we_o          ),
+    .data_atop_o           ( data_atop_o        ),
     .data_be_o             ( data_be_o          ),
     .data_wdata_o          ( data_wdata_o       ),
     .data_rdata_i          ( data_rdata_i       ),
-    
-    .data_atomic_op_o      ( data_atomic_op_o   ),
-    .data_atomic_op_i      ( data_atomic_op     ),
+
 
     // signal from ex stage
     .data_we_ex_i          ( data_we_ex         ),
+    .data_atop_ex_i        ( data_atop_ex       ),
     .data_type_ex_i        ( data_type_ex       ),
     .data_wdata_ex_i       ( alu_operand_c_ex   ),
     .data_reg_offset_ex_i  ( data_reg_offset_ex ),
